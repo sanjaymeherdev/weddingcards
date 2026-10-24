@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Rashi & Manish</title>
+<style>
+:root{--bg:#fbf5ec;--card:#fff;--ink:#2b1a10;--soft:#8a6a52;--rust:#9e1b32;--line:#e3cfae;--ok:#2e7d32;--bad:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--rust);color:#fff;padding:18px 20px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;opacity:.85;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:18px 16px 120px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 16px}
+.card h2{margin:0 0 4px;font-size:17px;color:var(--rust)}
+.card>p.h{margin:0 0 14px;color:var(--soft);font-size:14px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+input,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:15px system-ui,sans-serif;background:#fff;color:var(--ink)}
+textarea{min-height:160px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.row{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row label{margin-top:0}
+.thumb{width:96px;height:96px;border-radius:10px;background:#eee center/cover no-repeat;border:1px solid var(--line);display:grid;place-items:center;color:#aaa;font-size:12px;text-align:center}
+.row small{display:block;color:var(--soft);margin-top:4px;font-size:12px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button{border:0;border-radius:10px;padding:11px 18px;font:600 14px system-ui,sans-serif;cursor:pointer;background:var(--rust);color:#fff}
+button.alt{background:#fff;color:var(--rust);border:1.5px solid var(--rust)}
+button:disabled{opacity:.5;cursor:wait}
+#msg{position:fixed;left:0;right:0;bottom:0;padding:14px 18px;font-size:14px;font-weight:600;color:#fff;background:#444;display:none;z-index:9}
+#msg.ok{background:var(--ok);display:block}#msg.bad{background:var(--bad);display:block}#msg.info{background:#444;display:block}
+details summary{cursor:pointer;font-weight:600;color:var(--rust)}
+ol{padding-left:20px;margin:8px 0;color:var(--soft);font-size:14px}
+code{background:#f4eadb;padding:1px 5px;border-radius:5px;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.row{grid-template-columns:72px 1fr}.thumb{width:72px;height:72px}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>Invitation Admin</h1><p>Update photos and music with public links</p></header>
+<main>
+
+<div class="card">
+  <h2>1 · Photos</h2>
+  <p class="h">Paste a public image link (https://…). A preview appears instantly. Google Drive and Dropbox share links are converted automatically.</p>
+  <div id="imgRows"></div>
+</div>
+
+<div class="card">
+  <h2>2 · Music</h2>
+  <p class="h">Paste a direct link to an MP3/M4A/OGG file. Leave empty to use the built-in soft instrumental.</p>
+  <label for="musicSrc">Music URL</label>
+  <input id="musicSrc" type="url" placeholder="https://example.com/song.mp3" inputmode="url">
+  <label for="vol">Volume: <span id="volv">60</span>%</label>
+  <input id="vol" type="range" min="0" max="100" value="60">
+  <div class="btns"><button class="alt" id="tPlay" type="button">▶ Test music</button><button class="alt" id="tStop" type="button">■ Stop</button></div>
+  <audio id="aud" preload="none"></audio>
+</div>
+
+<div class="card">
+  <h2>3 · Save</h2>
+  <p class="h">Preview first, then save. Saving commits <code>config.json</code> to GitHub, and the live site updates after your host redeploys (usually under a minute).</p>
+  <div class="btns">
+    <button class="alt" id="bPrev" type="button">👁 Preview invitation</button>
+    <button id="bSave" type="button">💾 Save to GitHub</button>
+    <button class="alt" id="bDl" type="button">⬇ Download config.json</button>
+  </div>
+
+  <details style="margin-top:18px" open>
+    <summary>GitHub connection</summary>
+    <div class="two">
+      <div><label for="repo">Repository</label><input id="repo" value="sanjaymeherdev/weddingcards"></div>
+      <div><label for="branch">Branch</label><input id="branch" value="main"></div>
+    </div>
+    <label for="token">Personal access token</label>
+    <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
+    <ol>
+      <li>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.</li>
+      <li>Repository access: only <code>weddingcards</code>. Permission: <b>Contents → Read and write</b>.</li>
+      <li>Paste it above. It is kept only in this browser. Without it nobody can save changes.</li>
+    </ol>
+    <label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" id="remember" style="width:auto"> Remember token on this device</label>
+  </details>
+
+  <details style="margin-top:14px">
+    <summary>Advanced: edit raw config JSON</summary>
+    <textarea id="raw" spellcheck="false"></textarea>
+    <div class="btns"><button class="alt" id="bApply" type="button">Apply JSON</button></div>
+  </details>
+</div>
+</main>
+<div id="msg" role="status"></div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var C=null;
+
+/* every image slot: [label, hint, getter path] */
+var SLOTS=[
+ ['Gate / cover (Ganesh ji)','First screen, before opening','gate.image'],
+ ['Hero background','Big photo behind the names','hero.image'],
+ ['Couple photo','Arch photo in "two hearts" section','story.image'],
+ ['Banner','Full-width photo with the quote','banner.image'],
+ ['Venue photo','Shown in the Venue section','venue.image']
+];
+
+function get(o,p){return p.split('.').reduce(function(a,k){return a&&a[k]},o)}
+function set(o,p,v){var k=p.split('.'),l=k.pop(),t=k.reduce(function(a,x){return a[x]=a[x]||{}},o);t[l]=v}
+
+/* Convert common share links to direct links */
+function fixUrl(u){
+ u=(u||'').trim();if(!u)return u;
+ var m=u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)||u.match(/drive\.google\.com\/(?:open|uc)\?[^#]*id=([^&#]+)/);
+ if(m)return 'https://drive.google.com/uc?export=view&id='+m[1];
+ if(/(^|\.)dropbox\.com\//.test(u)){if(/[?&]dl=\d/.test(u))return u.replace(/([?&])dl=\d/,'$1raw=1');return /[?&]raw=1/.test(u)?u:u+(u.indexOf('?')<0?'?':'&')+'raw=1'}
+ return u;
+}
+
+function msg(t,cls,ms){var m=$('#msg');m.textContent=t;m.className=cls||'info';clearTimeout(msg.t);if(ms)msg.t=setTimeout(function(){m.className=''},ms)}
+
+function buildRows(){
+ $('#imgRows').innerHTML='';
+ SLOTS.forEach(function(s,i){
+  var row=document.createElement('div');row.className='row';
+  row.innerHTML='<div class="thumb" id="th'+i+'">no image</div><div><label for="im'+i+'">'+s[0]+'</label><input id="im'+i+'" type="url" inputmode="url" placeholder="https://… or assets/couple.jpg"><small>'+s[1]+'</small></div>';
+  $('#imgRows').appendChild(row);
+  var inp=row.querySelector('input');inp.value=get(C,s[2])||'';
+  var upd=function(){var v=fixUrl(inp.value);set(C,s[2],v);sync();
+   var th=$('#th'+i);th.style.backgroundImage=v?'url("'+v.replace(/"/g,'%22')+'")':'';th.textContent=v?'':'no image'};
+  inp.addEventListener('input',upd);
+  inp.addEventListener('blur',function(){var f=fixUrl(inp.value);if(f!==inp.value){inp.value=f}});
+  upd();
+ });
+}
+
+function sync(){$('#raw').value=JSON.stringify(C,null,2)}
+
+function fill(){
+ buildRows();
+ $('#musicSrc').value=(C.music&&C.music.src)||'';
+ var v=Math.round(((C.music&&C.music.volume)==null?.6:C.music.volume)*100);
+ $('#vol').value=v;$('#volv').textContent=v;sync();
+}
+
+$('#musicSrc').addEventListener('input',function(){C.music=C.music||{};C.music.src=fixUrl(this.value);sync()});
+$('#musicSrc').addEventListener('blur',function(){this.value=fixUrl(this.value)});
+$('#vol').addEventListener('input',function(){C.music=C.music||{};C.music.volume=this.value/100;$('#volv').textContent=this.value;$('#aud').volume=this.value/100;sync()});
+
+$('#tPlay').onclick=function(){
+ var a=$('#aud'),u=fixUrl($('#musicSrc').value);
+ if(!u){msg('No URL entered — the built-in soft instrumental will play on the invitation.','info',3500);return}
+ a.src=u;a.volume=$('#vol').value/100;
+ a.play().then(function(){msg('Playing ✔ this link works.','ok',2500)}).catch(function(){msg('Could not play this link. Use a direct link to an audio file (ends in .mp3 / .m4a), not a webpage.','bad',6000)});
+};
+$('#tStop').onclick=function(){$('#aud').pause()};
+
+/* Raw JSON */
+$('#bApply').onclick=function(){try{C=JSON.parse($('#raw').value);fill();msg('JSON applied.','ok',2000)}catch(e){msg('Invalid JSON: '+e.message,'bad',6000)}};
+
+/* Preview */
+$('#bPrev').onclick=function(){try{localStorage.setItem('wc_preview',JSON.stringify(C));window.open('index.html?preview=1','_blank')}catch(e){msg('Preview needs browser storage enabled.','bad',4000)}};
+
+/* Download */
+$('#bDl').onclick=function(){var b=new Blob([JSON.stringify(C,null,2)+'\n'],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='config.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)};
+
+/* GitHub save */
+function b64(s){return btoa(unescape(encodeURIComponent(s)))}
+function repoInfo(){var r=$('#repo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'').replace(/\/$/,'');return{repo:r,branch:$('#branch').value.trim()||'main'}}
+async function gh(path,opt){
+ var t=$('#token').value.trim();if(!t)throw new Error('Enter your GitHub token first.');
+ var r=await fetch('https://api.github.com/repos/'+path,Object.assign({headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json'}},opt||{}));
+ var j=await r.json().catch(function(){return{}});
+ if(!r.ok)throw new Error(r.status===401?'Token rejected (401). Check it is correct and not expired.':r.status===403?'Token lacks permission (403). It needs Contents: Read and write.':r.status===404?'Repo/branch/file not found (404), or token has no access to this repo.':(j.message||('GitHub error '+r.status)));
+ return j;
+}
+$('#bSave').onclick=async function(){
+ var btn=this;btn.disabled=true;
+ try{
+  JSON.parse($('#raw').value);
+  if($('#remember').checked)localStorage.setItem('wc_token',$('#token').value.trim());else localStorage.removeItem('wc_token');
+  localStorage.setItem('wc_repo',$('#repo').value.trim());localStorage.setItem('wc_branch',$('#branch').value.trim());
+  var ri=repoInfo();msg('Saving…','info');
+  var cur=await gh(ri.repo+'/contents/config.json?ref='+encodeURIComponent(ri.branch));
+  await gh(ri.repo+'/contents/config.json',{method:'PUT',headers:{'Authorization':'Bearer '+$('#token').value.trim(),'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+   body:JSON.stringify({message:'Update invitation via admin',content:b64(JSON.stringify(C,null,2)+'\n'),sha:cur.sha,branch:ri.branch})});
+  msg('Saved ✔ The live site will update after redeploy (about a minute).','ok',8000);
+ }catch(e){msg(e.message,'bad',9000)}
+ btn.disabled=false;
+};
+
+/* init */
+(function init(){
+ try{$('#repo').value=localStorage.getItem('wc_repo')||$('#repo').value;$('#branch').value=localStorage.getItem('wc_branch')||$('#branch').value;var t=localStorage.getItem('wc_token');if(t){$('#token').value=t;$('#remember').checked=true}}catch(e){}
+ fetch('config.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){C=j;fill()})
+ .catch(function(){msg('Could not load config.json. Open this page from your website (not as a local file).','bad')});
+})();
+})();
+</script>
+</body>
+</html>

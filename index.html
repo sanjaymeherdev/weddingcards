@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Maitri & Suan</title>
+<title>Rashi & Manish</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fbf5ec;--card:#f3e6d3;--field:#fbf5ec;--ink:#2b1a10;--soft:#8a6a52;--rust:#a0522d;--gold:#c9a15b;--sage:#5f8f7b;--line:#d9bd8c;--foot:#2e170c;
@@ -60,7 +60,19 @@ h2{font-size:clamp(34px,9vw,44px);margin:6px 0 26px;line-height:1.1;font-weight:
 .q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,5.4vw,24px);line-height:1.45;text-align:left;max-width:440px;margin:0 auto}
 .by{text-align:left;max-width:440px;margin:10px auto 0;color:var(--soft)}
 .ev{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 24px 26px;margin:0 0 20px;text-align:left;overflow:hidden}
-.ev:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#b5603a,var(--rust),#6e8a52)}
+.ev:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--a1,#b5603a),var(--a2,var(--gold)))}
+.dayhead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,6vw,26px);color:var(--rust);margin:34px 0 16px;display:flex;align-items:center;gap:12px}
+.dayhead:first-of-type{margin-top:0}
+.dayhead:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.theme{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);border:1px solid var(--line);border-radius:30px;padding:6px 14px 6px 10px}
+.theme i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.2);display:inline-block}
+.theme i+i{margin-left:-14px}
+.fam{display:grid;gap:18px}
+.fc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 22px}
+.fc .t{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage)}
+.fc h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:38px;margin:6px 0 2px;color:var(--rust)}
+.fc .r{color:var(--soft);margin:0 0 8px}
+.fc p.pn{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.4vw,23px);margin:0;line-height:1.5}
 .ev .ic{font-size:36px;line-height:1}
 .ev h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:32px;margin:12px 0 2px}
 .ev .d{color:var(--rust);font-size:15px;margin:0}.ev .tm{color:var(--soft);font-size:15px;margin:0 0 12px}.ev p.x{margin:0}
@@ -109,6 +121,7 @@ var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 /* config.json is the source of truth; an inline copy (#inline-config) is only a fallback for single-file previews */
 async function loadConfig(){
+ if(/[?&]preview=1/.test(location.search)){try{var pv=localStorage.getItem('wc_preview');if(pv)return JSON.parse(pv)}catch(e){}}
  try{var r=await fetch('config.json',{cache:'no-cache'});if(r.ok)return await r.json()}catch(e){}
  var el=document.getElementById('inline-config');if(el)return JSON.parse(el.textContent);
  throw new Error('config.json not found. Open this page through a web server (or Netlify), not file://');
@@ -118,25 +131,29 @@ function render(C){
  document.title=C.meta.title;
  var rs=document.documentElement.style;
  Object.keys(C.theme||{}).forEach(function(k){rs.setProperty('--'+k,C.theme[k])});
- rs.setProperty('--img-gate','url("'+C.gate.image+'")');
- rs.setProperty('--img-hero','url("'+C.hero.image+'")');
- rs.setProperty('--img-banner','url("'+C.banner.image+'")');
+ var cu=function(u){return 'url("'+String(u||'').replace(/["\\\n\r]/g,function(c){return encodeURIComponent(c)})+'")'};
+ rs.setProperty('--img-gate',cu(C.gate.image));
+ rs.setProperty('--img-hero',cu(C.hero.image));
+ rs.setProperty('--img-banner',cu(C.banner.image));
  $('#prompt').textContent=C.gate.prompt;
- var H=C.hero,S=C.story,E=C.events,V=C.venue,R=C.rsvp,F=C.footer;
+ var H=C.hero,S=C.story,E=C.events,V=C.venue,R=C.rsvp,F=C.footer,FM=C.families;
  var opts=function(a){return a.map(function(o){return'<option>'+esc(o)+'</option>'}).join('')};
  var col=function(a){return a.map(function(t){return'<p>'+esc(t)+'</p>'}).join('')};
  $('#app').innerHTML=
  '<header class="hero"><div class="tw">'+esc(H.tagline)+'</div><h1 class="n1">'+esc(H.name1)+'</h1><div class="amp serif">&amp;</div><div class="n2">'+esc(H.name2)+'</div>'+
- '<div class="inv">'+esc(H.invite)+'</div><div class="dates">'+H.dates.map(esc).join(' <i>✦</i> ')+'</div><div class="ven">'+esc(H.venue)+'</div>'+
+ '<div class="inv">'+esc(H.invite)+'</div><div class="dates">'+H.dates.map(esc).join(' <i>✦</i> ')+'</div>'+(H.venue?'<div class="ven">'+esc(H.venue)+'</div>':'')+
  '<div class="count" aria-label="Countdown"><div><b id="d">--</b><span>Days</span></div><div><b id="h">--</b><span>Hours</span></div><div><b id="m">--</b><span>Mins</span></div><div><b id="s">--</b><span>Secs</span></div></div>'+
  '<a class="scroll" href="#story">'+esc(H.scroll)+'</a></header>'+
  '<section id="story"><div class="wrap"><h2 class="serif">'+esc(S.heading)+'</h2><img class="arch" src="'+esc(S.image)+'" alt="'+esc(H.name1+' and '+H.name2)+'"><p class="q">'+esc(S.quote)+'</p><p class="by">'+esc(S.by)+'</p></div></section>'+
  '<div class="divider">❧</div>'+
+ '<section><div class="wrap"><div class="label">'+esc(FM.label)+'</div><h2 class="serif">'+esc(FM.heading)+'</h2><div class="fam">'+[FM.bride,FM.groom].map(function(f){return'<div class="fc"><div class="t">'+esc(f.title)+'</div><h3>'+esc(f.name)+'</h3><p class="r">'+esc(f.relation)+'</p>'+f.parents.map(function(p){return'<p class="pn">'+esc(p)+'</p>'}).join('')+'</div>'}).join('')+'</div></div></section><div class="divider">❧</div>'+
  '<section><div class="wrap"><div class="label">'+esc(E.label)+'</div><h2 class="serif">'+esc(E.heading)+'</h2>'+
- E.items.map(function(e){return'<div class="ev"><div class="ic">'+esc(e.icon)+'</div><h3>'+esc(e.title)+'</h3><p class="d">'+esc(e.date)+'</p><p class="tm">'+esc(e.time)+'</p><p class="x">'+esc(e.text)+'</p></div>'}).join('')+'</div></section>'+
+ E.days.map(function(d){return'<div class="dayhead">'+esc(d.date)+'</div>'+d.items.map(function(e){var c=e.colors||[];
+   var sw=e.theme?'<div class="theme">'+c.map(function(x){return'<i style="background:'+esc(x)+'"></i>'}).join('')+'Theme · '+esc(e.theme)+'</div>':'';
+   return'<div class="ev"'+(c.length?' style="--a1:'+esc(c[0])+';--a2:'+esc(c[1]||c[0])+'"':'')+'><div class="ic">'+esc(e.icon)+'</div><h3>'+esc(e.title)+'</h3><p class="tm" style="color:var(--rust);font-weight:500">'+esc(e.time)+'</p>'+sw+'<p class="x">'+esc(e.text)+'</p></div>'}).join('')}).join('')+'</div></section>'+
  '<div class="full" role="img" aria-label="'+esc(V.name)+'"><p class="serif">'+esc(C.banner.quote)+'</p></div><div class="divider" style="margin-top:36px">❧</div>'+
  '<section><div class="wrap"><div class="label" style="color:#a8873c">'+esc(V.label)+'</div><h2 class="serif">'+esc(V.heading)+'</h2><img class="vimg" src="'+esc(V.image)+'" alt="'+esc(V.name)+'">'+
- '<h3 class="serif vname">'+esc(V.name)+'</h3><p class="addr">'+V.address.map(esc).join('<br>')+'</p><a class="pill" target="_blank" rel="noopener" href="'+esc(V.mapsUrl)+'">'+esc(V.mapsText)+'</a></div></section><div class="divider">❧</div>'+
+ '<h3 class="serif vname">'+esc(V.name)+'</h3>'+(V.address&&V.address.length?'<p class="addr">'+V.address.map(esc).join('<br>')+'</p>':'')+(V.mapsUrl?'<a class="pill" target="_blank" rel="noopener" href="'+esc(V.mapsUrl)+'">'+esc(V.mapsText)+'</a>':'')+'</div></section><div class="divider">❧</div>'+
  '<section><div class="wrap"><div class="label">'+esc(R.label)+'</div><h2 class="serif">'+esc(R.heading)+'</h2><div class="form">'+
  '<p class="intro">'+esc(R.intro).replace('{deadline}','<b>'+esc(R.deadline)+'</b>')+'</p>'+
  '<form id="rsvp"><label for="n">Your name</label><input id="n" name="name" placeholder="Full name" required autocomplete="name">'+
