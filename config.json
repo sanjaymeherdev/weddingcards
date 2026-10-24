@@ -71,8 +71,8 @@
     "label": "Find us here",
     "heading": "Venue",
     "image": "assets/venue.jpg",
-    "name": "Venue details coming soon",
-    "address": [],
+    "name": "Tata Dharamsala",
+    "address": ["Basukinath Dham", "Jharkhand 814118"],
     "mapsUrl": "",
     "mapsText": "📍 Open in Google Maps"
   },
