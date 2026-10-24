@@ -1,0 +1,74 @@
+{
+  "meta": { "title": "Maitri & Suan — You’re Invited 🙏" },
+  "theme": { "rust": "#a0522d", "gold": "#c9a15b", "sage": "#5f8f7b" },
+  "music": { "src": "", "volume": 0.6 },
+  "effects": {
+    "petals": { "marigold": 26, "jasmine": 16 },
+    "trail": {
+      "enabled": true,
+      "colors": ["#f6b21e", "#e8721c", "#fbd25a", "#e0607e", "#ffffff"],
+      "size": 26,
+      "spacing": 30
+    }
+  },
+  "gate": { "image": "assets/ganesh.jpg", "prompt": "Open the invitation" },
+  "hero": {
+    "image": "assets/couple.jpg",
+    "tagline": "Together with their families",
+    "name1": "Maitri",
+    "name2": "Suan",
+    "invite": "invite you on",
+    "dates": ["25th November 2026", "26th November 2026"],
+    "venue": "The Grand Heritage Resort · Pune",
+    "countdownTo": "2026-11-25T10:00:00+05:30",
+    "scroll": "Scroll to explore ↓"
+  },
+  "story": {
+    "heading": "two hearts, one beautiful journey....",
+    "image": "assets/couple.jpg",
+    "quote": "\"We are delighted to invite you to celebrate the beginning of our forever\"",
+    "by": "— Maitri & Suan"
+  },
+  "events": {
+    "label": "25 & 26 November 2026",
+    "heading": "Celebrations",
+    "items": [
+      { "icon": "💍", "title": "Engagement", "date": "Wednesday, 25th November 2026", "time": "10:00 AM onwards", "text": "A joyful morning as we exchange rings and begin our forever" },
+      { "icon": "🌼", "title": "Haldi", "date": "Wednesday, 25th November 2026", "time": "2:00 PM onwards", "text": "Turmeric, laughter, and blessings — an intimate afternoon with those closest to us." },
+      { "icon": "🎶", "title": "Sangeet", "date": "Wednesday, 25th November 2026", "time": "7:30 PM onwards", "text": "Music, dance, and pure joy. Come ready to dance under the stars." },
+      { "icon": "🪔", "title": "Wedding", "date": "Thursday, 26th November 2026", "time": "8:00 PM onwards", "text": "The most sacred evening — we wed in the presence of family, friends and blessings." }
+    ]
+  },
+  "banner": { "image": "assets/temple.jpg", "quote": "\"We await your gracious presence\"" },
+  "venue": {
+    "label": "Find us here",
+    "heading": "Venue",
+    "image": "assets/venue.jpg",
+    "name": "The Grand Heritage Resort",
+    "address": ["Nimgaon Road, Near Pune–Nagar Highway", "Kasari, Kondhapuri, Maharashtra 412209", "Pune, India"],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=The+Grand+Heritage+Resort+Kondhapuri+Pune",
+    "mapsText": "📍 Open in Google Maps"
+  },
+  "rsvp": {
+    "label": "We’d love to know",
+    "heading": "RSVP",
+    "intro": "Your presence means the world to us. Please let us know by {deadline}.",
+    "deadline": "15th November 2026",
+    "mode": "netlify",
+    "endpoint": "",
+    "whatsapp": "",
+    "from": ["Ladki wale", "Ladke wale"],
+    "events": ["All four events 🎉", "Engagement only", "Haldi only", "Sangeet only", "Wedding only", "Engagement + Haldi", "Sangeet + Wedding"],
+    "guests": ["1", "2", "3", "4", "5+"],
+    "button": "Confirm 🙏",
+    "thanks": "🌸 We’re overjoyed — see you there!",
+    "thanksBy": "Maitri & Suan",
+    "error": "Couldn’t send your reply. Please try again or message us on WhatsApp."
+  },
+  "footer": {
+    "names": "❧ Maitri & Suan ❧",
+    "blessing": "With blessings of",
+    "left": ["Smt. Kalpana Singh & Shri Satyanand Singh", "(Late) Smt. Prabhawati Devi & (Late) Shri Subodh Narayan Singh"],
+    "right": ["(Late) Smt. Shusma Anand", "Smt. Manu Misra & Shri Sashi Anand", "Smt. Manju Devi & (Late) Shri Nand Lal Sah"]
+  }
+}
