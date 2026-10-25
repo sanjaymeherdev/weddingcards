@@ -8,7 +8,7 @@
     "sage": "#7b5ea7"
   },
   "music": {
-    "src": "",
+    "src": "song.mp4",
     "volume": 0.6
   },
   "effects": {
@@ -132,7 +132,7 @@
     ]
   },
   "banner": {
-    "image": "https://i.postimg.cc/dtJgWZ83/temple.jpg",
+    "image": "https://i.postimg.cc/x17SXjB1/Wide-angle-of-Galigopuram.jpg",
     "quote": "\"We await your gracious presence\""
   },
   "venue": {
