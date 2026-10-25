@@ -1,31 +1,55 @@
 {
-  "meta": { "title": "Rashi & Manish — You’re Invited 🙏" },
-  "theme": { "rust": "#9e1b32", "gold": "#c9a15b", "sage": "#7b5ea7" },
-  "music": { "src": "", "volume": 0.6 },
+  "meta": {
+    "title": "Rashi & Manish — You’re Invited 🙏"
+  },
+  "theme": {
+    "rust": "#9e1b32",
+    "gold": "#c9a15b",
+    "sage": "#7b5ea7"
+  },
+  "music": {
+    "src": "",
+    "volume": 0.6
+  },
   "effects": {
-    "petals": { "marigold": 26, "jasmine": 16 },
+    "petals": {
+      "marigold": 26,
+      "jasmine": 16
+    },
     "trail": {
       "enabled": true,
-      "colors": ["#f6b21e", "#e8721c", "#fbd25a", "#e0607e", "#ffffff"],
+      "colors": [
+        "#f6b21e",
+        "#e8721c",
+        "#fbd25a",
+        "#e0607e",
+        "#ffffff"
+      ],
       "size": 26,
       "spacing": 30
     }
   },
-  "gate": { "image": "assets/ganesh.jpg", "prompt": "Open the invitation" },
+  "gate": {
+    "image": "assets/ganesh.jpg",
+    "prompt": "Open the invitation"
+  },
   "hero": {
-    "image": "assets/couple.jpg",
+    "image": "https://i.postimg.cc/L6mGygzJ/tem.jpg",
     "tagline": "Shubh Vivah · Together with their families",
     "name1": "Rashi",
     "name2": "Manish",
     "invite": "invite you to celebrate",
-    "dates": ["24th November 2026", "25th November 2026"],
+    "dates": [
+      "24th November 2026",
+      "25th November 2026"
+    ],
     "venue": "",
     "countdownTo": "2026-11-24T12:30:00+05:30",
     "scroll": "Scroll to explore ↓"
   },
   "story": {
     "heading": "two hearts, one beautiful journey....",
-    "image": "assets/couple.jpg",
+    "image": "https://i.postimg.cc/vHGCPxW8/bg.jpg",
     "quote": "\"We are delighted to invite you to celebrate the beginning of our forever\"",
     "by": "— Rashi & Manish"
   },
@@ -36,13 +60,19 @@
       "title": "Bride’s Family",
       "name": "Rashi",
       "relation": "Daughter of",
-      "parents": ["Smt. Rajni Devi Fitkariwala", "Shri Deepak Kumar Fitkariwala"]
+      "parents": [
+        "Smt. Rajni Devi Fitkariwala",
+        "Shri Deepak Kumar Fitkariwala"
+      ]
     },
     "groom": {
       "title": "Groom’s Family",
       "name": "Manish",
       "relation": "Son of",
-      "parents": ["Smt. Seema Devi Agarwal", "Shri Rajesh Agarwal"]
+      "parents": [
+        "Smt. Seema Devi Agarwal",
+        "Shri Rajesh Agarwal"
+      ]
     }
   },
   "events": {
@@ -52,27 +82,68 @@
       {
         "date": "Tuesday, 24th November 2026",
         "items": [
-          { "icon": "🪔", "title": "Mayra", "time": "12:30 PM", "theme": "Red & White", "colors": ["#c8102e", "#ffffff"], "text": "A heartfelt maternal-family ceremony of blessings and gifts. Dress in red & white." },
-          { "icon": "🎶", "title": "Sangeet", "time": "6:00 PM", "text": "Music, dance, and pure joy. Come ready to dance the night away." }
+          {
+            "icon": "🪔",
+            "title": "Mayra",
+            "time": "12:30 PM",
+            "theme": "Red & White",
+            "colors": [
+              "#c8102e",
+              "#ffffff"
+            ],
+            "text": "A heartfelt maternal-family ceremony of blessings and gifts. Dress in red & white."
+          },
+          {
+            "icon": "🎶",
+            "title": "Sangeet",
+            "time": "6:00 PM",
+            "text": "Music, dance, and pure joy. Come ready to dance the night away."
+          }
         ]
       },
       {
         "date": "Wednesday, 25th November 2026",
         "items": [
-          { "icon": "🌼", "title": "Haldi", "time": "11:00 AM", "theme": "Lavender", "colors": ["#b497d6", "#e6dcf5"], "text": "Turmeric, laughter, and blessings. Dress in shades of lavender." },
-          { "icon": "🐎", "title": "Baarat", "time": "6:00 PM", "text": "The groom’s grand procession — join us with dhol, dance and delight." },
-          { "icon": "✨", "title": "Reception", "time": "8:00 PM", "text": "An evening of dinner, blessings and celebration with family and friends." }
+          {
+            "icon": "🌼",
+            "title": "Haldi",
+            "time": "11:00 AM",
+            "theme": "Lavender",
+            "colors": [
+              "#b497d6",
+              "#e6dcf5"
+            ],
+            "text": "Turmeric, laughter, and blessings. Dress in shades of lavender."
+          },
+          {
+            "icon": "🐎",
+            "title": "Baarat",
+            "time": "6:00 PM",
+            "text": "The groom’s grand procession — join us with dhol, dance and delight."
+          },
+          {
+            "icon": "✨",
+            "title": "Reception",
+            "time": "8:00 PM",
+            "text": "An evening of dinner, blessings and celebration with family and friends."
+          }
         ]
       }
     ]
   },
-  "banner": { "image": "assets/temple.jpg", "quote": "\"We await your gracious presence\"" },
+  "banner": {
+    "image": "https://i.postimg.cc/dtJgWZ83/temple.jpg",
+    "quote": "\"We await your gracious presence\""
+  },
   "venue": {
     "label": "Find us here",
     "heading": "Venue",
-    "image": "assets/venue.jpg",
+    "image": "https://i.postimg.cc/L6mGygzY/tatad.webp",
     "name": "Tata Dharamsala",
-    "address": ["Basukinath Dham", "Jharkhand 814118"],
+    "address": [
+      "Basukinath Dham",
+      "Jharkhand 814118"
+    ],
     "mapsUrl": "",
     "mapsText": "📍 Open in Google Maps"
   },
@@ -84,9 +155,27 @@
     "mode": "netlify",
     "endpoint": "",
     "whatsapp": "",
-    "from": ["Ladki wale", "Ladke wale"],
-    "events": ["All events 🎉", "Mayra only", "Sangeet only", "Haldi only", "Baarat only", "Reception only", "Mayra + Sangeet", "Haldi + Baarat + Reception"],
-    "guests": ["1", "2", "3", "4", "5+"],
+    "from": [
+      "Ladki wale",
+      "Ladke wale"
+    ],
+    "events": [
+      "All events 🎉",
+      "Mayra only",
+      "Sangeet only",
+      "Haldi only",
+      "Baarat only",
+      "Reception only",
+      "Mayra + Sangeet",
+      "Haldi + Baarat + Reception"
+    ],
+    "guests": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5+"
+    ],
     "button": "Confirm 🙏",
     "thanks": "🌸 We’re overjoyed — see you there!",
     "thanksBy": "Rashi & Manish",
@@ -95,7 +184,13 @@
   "footer": {
     "names": "❧ Rashi & Manish ❧",
     "blessing": "With blessings of",
-    "left": ["Smt. Lila Devi", "Shri Narayan Pd Fitkariwala"],
-    "right": ["(Late) Shri Ram Gopal Agarwal", "Smt. Premlata Devi"]
+    "left": [
+      "Smt. Lila Devi",
+      "Shri Narayan Pd Fitkariwala"
+    ],
+    "right": [
+      "(Late) Shri Ram Gopal Agarwal",
+      "Smt. Premlata Devi"
+    ]
   }
 }
