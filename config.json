@@ -3,9 +3,9 @@
     "title": "Rashi & Manish — You’re Invited 🙏"
   },
   "theme": {
-    "rust": "#9e1b32",
-    "gold": "#c9a15b",
-    "sage": "#7b5ea7"
+    "rust": "#c1121f",
+    "gold": "#f2a900",
+    "sage": "#d81b60"
   },
   "music": {
     "src": "song.mp4",
@@ -84,20 +84,27 @@
         "items": [
           {
             "icon": "🪔",
-            "title": "Mayra",
-            "time": "12:30 PM",
-            "theme": "Red & White",
+            "title": "Mayra Ceremony",
+            "sub": "Pihar Ri Pehchan",
+            "time": "12:30 PM onwards",
+            "theme": "Red & Cream",
             "colors": [
-              "#c8102e",
-              "#ffffff"
+              "#d4122e",
+              "#fff1d0"
             ],
-            "text": "A heartfelt maternal-family ceremony of blessings and gifts. Dress in red & white."
+            "text": "Bhat bharan ne aayo, Biro maharo — a heartfelt ceremony of blessings and gifts from the maternal family. Dress in red & cream."
           },
           {
             "icon": "🎶",
-            "title": "Sangeet",
-            "time": "6:00 PM",
-            "text": "Music, dance, and pure joy. Come ready to dance the night away."
+            "title": "Sangeet Night",
+            "sub": "Nachde Ne Saare",
+            "time": "7:00 PM onwards",
+            "theme": "Bollywood Bling",
+            "colors": [
+              "#ff2e93",
+              "#ffc400"
+            ],
+            "text": "Music, dance and pure joy. Come ready to shine in your sparkliest Bollywood best."
           }
         ]
       },
@@ -106,25 +113,36 @@
         "items": [
           {
             "icon": "🌼",
-            "title": "Haldi",
-            "time": "11:00 AM",
+            "title": "Haldi Ceremony",
+            "sub": "Golden Glow",
+            "time": "11:00 AM onwards",
             "theme": "Lavender",
             "colors": [
-              "#b497d6",
-              "#e6dcf5"
+              "#9b6bdc",
+              "#e4d4ff"
             ],
-            "text": "Turmeric, laughter, and blessings. Dress in shades of lavender."
+            "text": "Turmeric, laughter and blessings. Dress in shades of lavender."
           },
           {
             "icon": "🐎",
-            "title": "Baarat",
-            "time": "6:00 PM",
-            "text": "The groom’s grand procession — join us with dhol, dance and delight."
+            "title": "Baraat",
+            "sub": "Baraatiyon Ka Swagat",
+            "time": "7:00 PM onwards",
+            "colors": [
+              "#ff7a00",
+              "#ffd000"
+            ],
+            "text": "Soulmates & Seven Vows begins with the groom’s grand procession — join us with dhol, dance and delight."
           },
           {
             "icon": "✨",
             "title": "Reception",
-            "time": "8:00 PM",
+            "sub": "The Floral Promise & The Rajwada Affair",
+            "time": "8:00 PM onwards",
+            "colors": [
+              "#e11d74",
+              "#ffb703"
+            ],
             "text": "An evening of dinner, blessings and celebration with family and friends."
           }
         ]
@@ -153,9 +171,9 @@
     "heading": "RSVP",
     "intro": "Your presence means the world to us. Please let us know by {deadline}.",
     "deadline": "15th November 2026",
-    "mode": "netlify",
+    "mode": "whatsapp",
     "endpoint": "",
-    "whatsapp": "",
+    "whatsapp": "919162375557",
     "from": [
       "Ladki wale",
       "Ladke wale"
@@ -177,7 +195,7 @@
       "4",
       "5+"
     ],
-    "button": "Confirm 🙏",
+    "button": "Confirm on WhatsApp 🙏",
     "thanks": "🌸 We’re overjoyed — see you there!",
     "thanksBy": "Rashi & Manish",
     "error": "Couldn’t send your reply. Please try again or message us on WhatsApp."
@@ -192,6 +210,7 @@
     "right": [
       "(Late) Shri Ram Gopal Agarwal",
       "Smt. Premlata Devi"
-    ]
+    ],
+    "regards": "Regards: Narayan Pd. Fitkariwala & Family"
   }
 }
