@@ -82,6 +82,12 @@ h2{font-size:clamp(34px,9vw,44px);margin:6px 0 26px;line-height:1.1;font-weight:
 .vimg{width:100%;border-radius:4px;box-shadow:0 14px 34px rgba(60,30,10,.25);display:block}
 .vname{font-size:clamp(30px,8vw,38px);margin:26px 0 6px;font-weight:400}
 .addr{color:var(--soft);line-height:2;margin:0 0 24px}
+.mapbox{position:relative;display:block;width:100%;height:250px;margin:28px 0 0;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 10px 28px rgba(60,30,10,.18);text-align:left;text-decoration:none}
+.mapbox iframe{width:100%;height:100%;border:0;pointer-events:none}
+.maphint{position:absolute;right:12px;bottom:12px;left:12px;display:flex;align-items:center;gap:10px;min-height:54px;padding:10px 14px;border:1px solid rgba(255,255,255,.45);border-radius:12px;background:rgba(251,245,236,.95);color:var(--rust);box-shadow:0 3px 12px rgba(0,0,0,.16);font-size:14px;font-weight:600}
+.map-pin{font-size:22px}.maphint small{display:block;color:var(--soft);font-size:11px;font-weight:400;letter-spacing:.04em}.map-arrow{margin-left:auto;font-size:20px}
+:root:not([data-theme="light"]) .maphint{background:rgba(44,26,16,.96)}
+.mapfallback{display:grid;height:100%;place-items:center;background:repeating-linear-gradient(35deg,var(--card) 0 28px,var(--bg) 28px 54px);color:var(--soft);font-size:14px}
 .pill{display:inline-flex;gap:10px;align-items:center;border:1.5px solid var(--rust);color:var(--rust);border-radius:40px;padding:14px 28px;text-decoration:none;font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
 .form{background:var(--card);border:1px solid var(--line);border-radius:44px 44px 28px 28px;padding:30px 24px;text-align:left}
 .form .intro{text-align:center;color:var(--soft);margin-top:0}.form .intro b{color:var(--rust)}
@@ -153,7 +159,7 @@ function render(C){
    return'<div class="ev"'+(c.length?' style="--a1:'+esc(c[0])+';--a2:'+esc(c[1]||c[0])+'"':'')+'><div class="ic">'+esc(e.icon)+'</div><h3>'+esc(e.title)+'</h3><p class="tm" style="color:var(--rust);font-weight:500">'+esc(e.time)+'</p>'+sw+'<p class="x">'+esc(e.text)+'</p></div>'}).join('')}).join('')+'</div></section>'+
  '<div class="full" role="img" aria-label="'+esc(V.name)+'"><p class="serif">'+esc(C.banner.quote)+'</p></div><div class="divider" style="margin-top:36px">❧</div>'+
  '<section><div class="wrap"><div class="label" style="color:#a8873c">'+esc(V.label)+'</div><h2 class="serif">'+esc(V.heading)+'</h2><img class="vimg" src="'+esc(V.image)+'" alt="'+esc(V.name)+'">'+
- '<h3 class="serif vname">'+esc(V.name)+'</h3>'+(V.address&&V.address.length?'<p class="addr">'+V.address.map(esc).join('<br>')+'</p>':'')+(V.mapsUrl?'<a class="pill" target="_blank" rel="noopener" href="'+esc(V.mapsUrl)+'">'+esc(V.mapsText)+'</a>':'')+'</div></section><div class="divider">❧</div>'+
+ '<h3 class="serif vname">'+esc(V.name)+'</h3>'+(V.address&&V.address.length?'<p class="addr">'+V.address.map(esc).join('<br>')+'</p>':'')+(V.mapsUrl?'<a class="mapbox" target="_blank" rel="noopener" href="'+esc(V.mapsUrl)+'" aria-label="Open '+esc(V.name)+' in Google Maps">'+(V.mapsEmbedUrl?'<iframe src="'+esc(V.mapsEmbedUrl)+'" title="Map showing '+esc(V.name)+'" aria-hidden="true" tabindex="-1" loading="lazy"></iframe>':'<span class="mapfallback">Map preview unavailable</span>')+'<span class="maphint"><span class="map-pin" aria-hidden="true">📍</span><span>'+esc(V.mapsText)+'<small>Tap to open this exact location in Google Maps</small></span><span class="map-arrow" aria-hidden="true">↗</span></span></a>':'')+'</div></section><div class="divider">❧</div>'+
  '<section><div class="wrap"><div class="label">'+esc(R.label)+'</div><h2 class="serif">'+esc(R.heading)+'</h2><div class="form">'+
  '<p class="intro">'+esc(R.intro).replace('{deadline}','<b>'+esc(R.deadline)+'</b>')+'</p>'+
  '<form id="rsvp"><label for="n">Your name</label><input id="n" name="name" placeholder="Full name" required autocomplete="name">'+
