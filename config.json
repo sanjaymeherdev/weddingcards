@@ -58,40 +58,40 @@
     "heading": "Little glimpses",
     "images": [
       {
-        "src": "assets/gallery/1.jpg",
+        "src": "assets/gallery/1.jpeg",
         "alt": "Rashi and Manish photo 1"
       },
       {
-        "src": "assets/gallery/2.jpg",
+        "src": "assets/gallery/2.jpeg",
         "alt": "Rashi and Manish photo 2"
       },
       {
-        "src": "assets/gallery/3.jpg",
+        "src": "assets/gallery/3.jpeg",
         "alt": "Rashi and Manish photo 3"
       },
       {
-        "src": "assets/gallery/4.jpg",
+        "src": "assets/gallery/4.jpeg",
         "alt": "Rashi and Manish photo 4"
       },
       {
-        "src": "assets/gallery/5.jpg",
+        "src": "assets/gallery/5.jpeg",
         "alt": "Rashi and Manish photo 5"
       },
       {
-        "src": "assets/gallery/6.jpg",
+        "src": "assets/gallery/6.jpeg",
         "alt": "Rashi and Manish photo 6"
       },
       {
-        "src": "assets/gallery/7.jpg",
+        "src": "assets/gallery/7.jpeg",
         "alt": "Rashi and Manish photo 7"
       },
       {
-        "src": "assets/gallery/8.jpg",
+        "src": "assets/gallery/8.jpeg",
         "alt": "Rashi and Manish photo 8"
       }
     ],
     "single": {
-      "image": "assets/gallery/single.jpg",
+      "image": "assets/gallery/single.jpeg",
       "caption": "Looking forward"
     }
   },
@@ -178,7 +178,7 @@
               "#ffd000"
             ],
             "text": "Soulmates & Seven Vows begins with the groom’s grand procession — join us with dhol, dance and delight.",
-            "image": "assets/events/baraat.jpg"
+            "image": "assets/events/baarat.jpg"
           },
           {
             "icon": "✨",

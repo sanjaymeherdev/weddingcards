@@ -287,11 +287,23 @@ function render(C){
   [['#story .wrap>*'],['.fc','a'],['.evhead .wrap>*'],['.dayhead'],['.ev','a'],['.vimg'],['.vname'],['.addr'],['.mapbox'],['.srsvp .wrap>*'],['footer .box'],['.arch','z'],['.pano .wrap>.label, .pano h2'],['.panoscroll','u'],['.pano1','u'],['.pcap'],['.evimg','u']].forEach(function(p){
    document.querySelectorAll(p[0]).forEach(function(el,i){el.classList.add('rv');if(p[1]==='z')el.classList.add('z');else if(p[1]==='u'){el.classList.add('up');if(i%2)el.classList.add('alt')}else if(p[1]==='a')el.classList.add(i%2?'r':'l');el.style.setProperty('--dl',(i%3)*.12+'s');io.observe(el)})})}
 
- /* panorama: bend tiles away from the centre while scrolling */
+/* panorama: bend tiles around the centre and advance automatically */
  var ps=$('.panoscroll');
  if(ps){var pis=ps.querySelectorAll('.pi');
   var curve=function(){pis.forEach(function(el){var d=(el.offsetLeft+el.offsetWidth/2-ps.scrollLeft-ps.clientWidth/2)/el.offsetWidth;d=Math.max(-2,Math.min(2,d));el.style.transform='rotateY('+(-d*14)+'deg) scale('+(1-Math.abs(d)*.04)+')'})};
-  ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);curve()}
+  var center=function(el,behavior){ps.scrollTo({left:el.offsetLeft-(ps.clientWidth-el.offsetWidth)/2,behavior:behavior})};
+  var nearest=function(){var mid=ps.scrollLeft+ps.clientWidth/2,best=0,dist=Infinity;pis.forEach(function(el,i){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<dist){best=i;dist=d}});return best};
+  var resumeTimer,autoTimer;
+  var pauseAuto=function(){clearTimeout(resumeTimer);clearInterval(autoTimer)};
+  var resumeAuto=function(){clearTimeout(resumeTimer);resumeTimer=setTimeout(startAuto,3200)};
+  var interact=function(){pauseAuto();resumeAuto()};
+  function startAuto(){clearInterval(autoTimer);if(reduce||pis.length<2)return;autoTimer=setInterval(function(){var next=(nearest()+1)%pis.length;center(pis[next],reduce?'auto':'smooth')},3200)}
+  ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);
+  ps.addEventListener('pointerenter',pauseAuto);ps.addEventListener('pointerleave',startAuto);
+  ps.addEventListener('focusin',pauseAuto);ps.addEventListener('focusout',startAuto);
+  ps.addEventListener('touchstart',pauseAuto,{passive:true});ps.addEventListener('touchend',resumeAuto,{passive:true});
+  ps.addEventListener('wheel',interact,{passive:true});ps.addEventListener('pointerdown',interact);
+  center(pis[0],'auto');curve();startAuto()}
 
  /* countdown */
  var target=new Date(H.countdownTo).getTime(),pad=function(x){return x<10?'0'+x:''+x};
