@@ -293,17 +293,17 @@ function render(C){
   var curve=function(){pis.forEach(function(el){var d=(el.offsetLeft+el.offsetWidth/2-ps.scrollLeft-ps.clientWidth/2)/el.offsetWidth;d=Math.max(-2,Math.min(2,d));el.style.transform='rotateY('+(-d*14)+'deg) scale('+(1-Math.abs(d)*.04)+')'})};
   var center=function(el,behavior){ps.scrollTo({left:el.offsetLeft-(ps.clientWidth-el.offsetWidth)/2,behavior:behavior})};
   var nearest=function(){var mid=ps.scrollLeft+ps.clientWidth/2,best=0,dist=Infinity;pis.forEach(function(el,i){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<dist){best=i;dist=d}});return best};
-  var resumeTimer,autoTimer;
+  var resumeTimer,autoTimer,inView=!('IntersectionObserver' in window);
   var pauseAuto=function(){clearTimeout(resumeTimer);clearInterval(autoTimer)};
   var resumeAuto=function(){clearTimeout(resumeTimer);resumeTimer=setTimeout(startAuto,3200)};
   var interact=function(){pauseAuto();resumeAuto()};
-  function startAuto(){clearInterval(autoTimer);if(reduce||pis.length<2)return;autoTimer=setInterval(function(){var next=(nearest()+1)%pis.length;center(pis[next],reduce?'auto':'smooth')},3200)}
+  function startAuto(){clearInterval(autoTimer);if(!inView||pis.length<2)return;autoTimer=setInterval(function(){var next=(nearest()+1)%pis.length;center(pis[next],reduce?'auto':'smooth')},3200)}
   ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);
-  ps.addEventListener('pointerenter',pauseAuto);ps.addEventListener('pointerleave',startAuto);
   ps.addEventListener('focusin',pauseAuto);ps.addEventListener('focusout',startAuto);
   ps.addEventListener('touchstart',pauseAuto,{passive:true});ps.addEventListener('touchend',resumeAuto,{passive:true});
   ps.addEventListener('wheel',interact,{passive:true});ps.addEventListener('pointerdown',interact);
-  center(pis[0],'auto');curve();startAuto()}
+  center(pis[0],'auto');curve();
+  if('IntersectionObserver' in window){var galleryObserver=new IntersectionObserver(function(entries){inView=entries[0].isIntersecting;if(inView)startAuto();else pauseAuto()});galleryObserver.observe(ps)}else startAuto()}
 
  /* countdown */
  var target=new Date(H.countdownTo).getTime(),pad=function(x){return x<10?'0'+x:''+x};
