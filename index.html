@@ -195,7 +195,7 @@ footer .rg{margin:18px 0 0;font-family:'Cormorant Garamond',serif;font-size:20px
 
 /* gallery: panorama strip + single wide photo */
 .pano{padding:34px 0}
-.panoscroll{position:relative;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px calc(50% - 120px);perspective:900px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.panoscroll{position:relative;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:none;padding:18px calc(50% - 120px);perspective:900px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .panoscroll::-webkit-scrollbar{display:none}
 .pi{flex:0 0 240px;height:300px;margin:0;scroll-snap-align:center;overflow:hidden;border:2px solid var(--gold);border-radius:4px;box-shadow:0 14px 30px rgba(60,30,10,.25);will-change:transform}
 .pi img,.evimg img{width:100%;height:100%;object-fit:cover;display:block}
@@ -287,23 +287,20 @@ function render(C){
   [['#story .wrap>*'],['.fc','a'],['.evhead .wrap>*'],['.dayhead'],['.ev','a'],['.vimg'],['.vname'],['.addr'],['.mapbox'],['.srsvp .wrap>*'],['footer .box'],['.arch','z'],['.pano .wrap>.label, .pano h2'],['.panoscroll','u'],['.pano1','u'],['.pcap'],['.evimg','u']].forEach(function(p){
    document.querySelectorAll(p[0]).forEach(function(el,i){el.classList.add('rv');if(p[1]==='z')el.classList.add('z');else if(p[1]==='u'){el.classList.add('up');if(i%2)el.classList.add('alt')}else if(p[1]==='a')el.classList.add(i%2?'r':'l');el.style.setProperty('--dl',(i%3)*.12+'s');io.observe(el)})})}
 
-/* panorama: bend tiles around the centre and advance automatically */
+/* panorama: bend tiles around the centre and move continuously */
  var ps=$('.panoscroll');
  if(ps){var pis=ps.querySelectorAll('.pi');
   var curve=function(){pis.forEach(function(el){var d=(el.offsetLeft+el.offsetWidth/2-ps.scrollLeft-ps.clientWidth/2)/el.offsetWidth;d=Math.max(-2,Math.min(2,d));el.style.transform='rotateY('+(-d*14)+'deg) scale('+(1-Math.abs(d)*.04)+')'})};
-  var center=function(el,behavior){ps.scrollTo({left:el.offsetLeft-(ps.clientWidth-el.offsetWidth)/2,behavior:behavior})};
-  var nearest=function(){var mid=ps.scrollLeft+ps.clientWidth/2,best=0,dist=Infinity;pis.forEach(function(el,i){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<dist){best=i;dist=d}});return best};
-  var resumeTimer,autoTimer,inView=!('IntersectionObserver' in window);
-  var pauseAuto=function(){clearTimeout(resumeTimer);clearInterval(autoTimer)};
-  var resumeAuto=function(){clearTimeout(resumeTimer);resumeTimer=setTimeout(startAuto,3200)};
-  var interact=function(){pauseAuto();resumeAuto()};
-  function startAuto(){clearInterval(autoTimer);if(!inView||pis.length<2)return;autoTimer=setInterval(function(){var next=(nearest()+1)%pis.length;center(pis[next],reduce?'auto':'smooth')},3200)}
+  var originals=Array.prototype.slice.call(pis),inView=!('IntersectionObserver' in window),frame=0,lastTime=0;
+  originals.forEach(function(el){var clone=el.cloneNode(true);clone.setAttribute('aria-hidden','true');ps.appendChild(clone)});
+  pis=ps.querySelectorAll('.pi');
+  var loopAt=ps.children[originals.length].offsetLeft-ps.children[0].offsetLeft;
+  function move(now){if(!inView)return;if(lastTime)ps.scrollLeft+=(now-lastTime)*.04;lastTime=now;if(ps.scrollLeft>=loopAt)ps.scrollLeft-=loopAt;curve();frame=requestAnimationFrame(move)}
+  function startMove(){if(!frame){lastTime=0;frame=requestAnimationFrame(move)}}
+  function stopMove(){if(frame)cancelAnimationFrame(frame);frame=0;lastTime=0}
   ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);
-  ps.addEventListener('focusin',pauseAuto);ps.addEventListener('focusout',startAuto);
-  ps.addEventListener('touchstart',pauseAuto,{passive:true});ps.addEventListener('touchend',resumeAuto,{passive:true});
-  ps.addEventListener('wheel',interact,{passive:true});ps.addEventListener('pointerdown',interact);
-  center(pis[0],'auto');curve();
-  if('IntersectionObserver' in window){var galleryObserver=new IntersectionObserver(function(entries){inView=entries[0].isIntersecting;if(inView)startAuto();else pauseAuto()});galleryObserver.observe(ps)}else startAuto()}
+  curve();
+  if('IntersectionObserver' in window){var galleryObserver=new IntersectionObserver(function(entries){inView=entries[0].isIntersecting;if(inView)startMove();else stopMove()});galleryObserver.observe(ps)}else startMove()}
 
  /* countdown */
  var target=new Date(H.countdownTo).getTime(),pad=function(x){return x<10?'0'+x:''+x};
