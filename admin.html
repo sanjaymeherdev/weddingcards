@@ -97,13 +97,25 @@ var $=function(s){return document.querySelector(s)};
 var C=null;
 
 /* every image slot: [label, hint, getter path] */
-var SLOTS=[
+var BASE=[
  ['Gate / cover (Ganesh ji)','First screen, before opening','gate.image'],
  ['Hero background','Big photo behind the names','hero.image'],
  ['Couple photo','Arch photo in "two hearts" section','story.image'],
  ['Banner','Full-width photo with the quote','banner.image'],
  ['Venue photo','Shown in the Venue section','venue.image']
 ];
+
+/* base slots + gallery photos + one photo per event, built from the current config */
+function slots(){
+ var s=BASE.slice();
+ if(C.gallery){
+  (C.gallery.images||[]).forEach(function(g,i){s.push(['Gallery photo '+(i+1),'Panorama strip (cropped to a tall tile)','gallery.images.'+i+'.src'])});
+  s.push(['Wide photo under gallery','Single landscape photo with the caption','gallery.single.image']);
+ }
+ ((C.events&&C.events.days)||[]).forEach(function(d,di){(d.items||[]).forEach(function(e,ei){
+  s.push(['Event photo: '+e.title,'Shown inside this event card','events.days.'+di+'.items.'+ei+'.image'])})});
+ return s;
+}
 
 function get(o,p){return p.split('.').reduce(function(a,k){return a&&a[k]},o)}
 function set(o,p,v){var k=p.split('.'),l=k.pop(),t=k.reduce(function(a,x){return a[x]=a[x]||{}},o);t[l]=v}
@@ -121,7 +133,7 @@ function msg(t,cls,ms){var m=$('#msg');m.textContent=t;m.className=cls||'info';c
 
 function buildRows(){
  $('#imgRows').innerHTML='';
- SLOTS.forEach(function(s,i){
+ slots().forEach(function(s,i){
   var row=document.createElement('div');row.className='row';
   row.innerHTML='<div class="thumb" id="th'+i+'">no image</div><div><label for="im'+i+'">'+s[0]+'</label><input id="im'+i+'" type="url" inputmode="url" placeholder="https://… or assets/couple.jpg"><small>'+s[1]+'</small></div>';
   $('#imgRows').appendChild(row);

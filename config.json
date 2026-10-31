@@ -53,6 +53,48 @@
     "quote": "\"We are delighted to invite you to celebrate the beginning of our forever\"",
     "by": "— Rashi & Manish"
   },
+  "gallery": {
+    "label": "Our moments",
+    "heading": "Little glimpses",
+    "images": [
+      {
+        "src": "assets/gallery/1.jpg",
+        "alt": "Rashi and Manish photo 1"
+      },
+      {
+        "src": "assets/gallery/2.jpg",
+        "alt": "Rashi and Manish photo 2"
+      },
+      {
+        "src": "assets/gallery/3.jpg",
+        "alt": "Rashi and Manish photo 3"
+      },
+      {
+        "src": "assets/gallery/4.jpg",
+        "alt": "Rashi and Manish photo 4"
+      },
+      {
+        "src": "assets/gallery/5.jpg",
+        "alt": "Rashi and Manish photo 5"
+      },
+      {
+        "src": "assets/gallery/6.jpg",
+        "alt": "Rashi and Manish photo 6"
+      },
+      {
+        "src": "assets/gallery/7.jpg",
+        "alt": "Rashi and Manish photo 7"
+      },
+      {
+        "src": "assets/gallery/8.jpg",
+        "alt": "Rashi and Manish photo 8"
+      }
+    ],
+    "single": {
+      "image": "assets/gallery/single.jpg",
+      "caption": "Looking forward"
+    }
+  },
   "families": {
     "label": "With love & blessings",
     "heading": "Our Families",
@@ -92,7 +134,8 @@
               "#d4122e",
               "#fff1d0"
             ],
-            "text": "Bhat bharan ne aayo, Biro maharo — a heartfelt ceremony of blessings and gifts from the maternal family. Dress in red & cream."
+            "text": "Bhat bharan ne aayo, Biro maharo — a heartfelt ceremony of blessings and gifts from the maternal family. Dress in red & cream.",
+            "image": "assets/events/mayra.jpg"
           },
           {
             "icon": "🎶",
@@ -104,7 +147,8 @@
               "#ff2e93",
               "#ffc400"
             ],
-            "text": "Music, dance and pure joy. Come ready to shine in your sparkliest Bollywood best."
+            "text": "Music, dance and pure joy. Come ready to shine in your sparkliest Bollywood best.",
+            "image": "assets/events/sangeet.jpg"
           }
         ]
       },
@@ -121,7 +165,8 @@
               "#9b6bdc",
               "#e4d4ff"
             ],
-            "text": "Turmeric, laughter and blessings. Dress in shades of lavender."
+            "text": "Turmeric, laughter and blessings. Dress in shades of lavender.",
+            "image": "assets/events/haldi.jpg"
           },
           {
             "icon": "🐎",
@@ -132,7 +177,8 @@
               "#ff7a00",
               "#ffd000"
             ],
-            "text": "Soulmates & Seven Vows begins with the groom’s grand procession — join us with dhol, dance and delight."
+            "text": "Soulmates & Seven Vows begins with the groom’s grand procession — join us with dhol, dance and delight.",
+            "image": "assets/events/baraat.jpg"
           },
           {
             "icon": "✨",
@@ -143,7 +189,8 @@
               "#e11d74",
               "#ffb703"
             ],
-            "text": "An evening of dinner, blessings and celebration with family and friends."
+            "text": "An evening of dinner, blessings and celebration with family and friends.",
+            "image": "assets/events/reception.jpg"
           }
         ]
       }

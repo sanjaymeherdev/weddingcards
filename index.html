@@ -3,7 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rashi & Manish</title>
+<title>Rashi & Manish — You’re Invited 🙏</title>
+<meta name="description" content="Together with their families, Rashi &amp; Manish invite you to celebrate their wedding on 24th &amp; 25th November 2026.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rashi &amp; Manish — You’re Invited 🙏">
+<meta property="og:description" content="Join us on 24th &amp; 25th November 2026 to celebrate the beginning of our forever.">
+<meta property="og:image" content="https://weddingcards-five.vercel.app/assets/thumbnail.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://weddingcards-five.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rashi &amp; Manish — You’re Invited 🙏">
+<meta name="twitter:description" content="Join us on 24th &amp; 25th November 2026.">
+<meta name="twitter:image" content="https://weddingcards-five.vercel.app/assets/thumbnail.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff6dc;--card:#fffaf0;--field:#fffdf6;--ink:#3b0b1c;--soft:#8a3d3a;--rust:#c1121f;--gold:#f2a900;--sage:#d81b60;--line:#f3c640;--foot:#4a0820;
@@ -180,6 +192,20 @@ footer .rg{margin:18px 0 0;font-family:'Cormorant Garamond',serif;font-size:20px
 .rv.l{transform:translateX(-60px) rotate(-2deg)}.rv.r{transform:translateX(60px) rotate(2deg)}.rv.z{transform:scale(.7) rotate(-6deg)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.hero>*{opacity:1!important;transform:none!important}.spark,.cf{display:none}}
+
+/* gallery: panorama strip + single wide photo */
+.pano{padding:34px 0}
+.panoscroll{position:relative;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px calc(50% - 120px);perspective:900px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.panoscroll::-webkit-scrollbar{display:none}
+.pi{flex:0 0 240px;height:300px;margin:0;scroll-snap-align:center;overflow:hidden;border:2px solid var(--gold);border-radius:4px;box-shadow:0 14px 30px rgba(60,30,10,.25);will-change:transform}
+.pi img,.evimg img{width:100%;height:100%;object-fit:cover;display:block}
+.pano1{display:block;width:100%;height:260px;object-fit:cover;border-radius:4px;box-shadow:0 14px 34px rgba(60,30,10,.25);margin-top:22px}
+.pcap{font-size:clamp(28px,8vw,34px);color:#a8873c;margin:14px 0 0}
+/* one photo per event, ticket-edge notches */
+.evimg{margin-top:18px;aspect-ratio:4/3;overflow:hidden;-webkit-mask:radial-gradient(circle 9px at top,#0000 98%,#000) top/36px 51% repeat-x,radial-gradient(circle 9px at bottom,#0000 98%,#000) bottom/36px 51% repeat-x;mask:radial-gradient(circle 9px at top,#0000 98%,#000) top/36px 51% repeat-x,radial-gradient(circle 9px at bottom,#0000 98%,#000) bottom/36px 51% repeat-x}
+/* slide up + rotate reveal */
+.rv.up{transform:translateY(90px) rotate(-6deg)}.rv.up.alt{transform:translateY(90px) rotate(6deg)}
+.rv.up.in{opacity:1;transform:none}
 </style>
 </head>
 <body class="locked">
@@ -222,18 +248,20 @@ function render(C){
  var H=C.hero,S=C.story,E=C.events,V=C.venue,R=C.rsvp,F=C.footer,FM=C.families;
  var opts=function(a){return a.map(function(o){return'<option>'+esc(o)+'</option>'}).join('')};
  var col=function(a){return a.map(function(t){return'<p>'+esc(t)+'</p>'}).join('')};
+ var G=C.gallery,gal='';
+ if(G&&G.images&&G.images.length){gal='<section class="pano"><div class="wrap">'+(G.label?'<div class="label">'+esc(G.label)+'</div>':'')+(G.heading?'<h2 class="serif">'+esc(G.heading)+'</h2>':'')+'</div><div class="panoscroll" tabindex="0" aria-label="Photo gallery, swipe sideways">'+G.images.map(function(g){return'<figure class="pi"><img src="'+esc(g.src)+'" alt="'+esc(g.alt||'')+'" loading="lazy"></figure>'}).join('')+'</div>'+(G.single&&G.single.image?'<div class="wrap"><img class="pano1" src="'+esc(G.single.image)+'" alt="'+esc(G.single.caption||'')+'" loading="lazy">'+(G.single.caption?'<p class="pcap serif">'+esc(G.single.caption)+'</p>':'')+'</div>':'')+'</section>'}
  $('#app').innerHTML=
  '<header class="hero"><div class="tw">'+esc(H.tagline)+'</div><h1 class="n1">'+esc(H.name1)+'</h1><div class="amp serif">&amp;</div><div class="n2">'+esc(H.name2)+'</div>'+
  '<div class="inv">'+esc(H.invite)+'</div><div class="dates">'+H.dates.map(esc).join(' <i>✦</i> ')+'</div>'+(H.venue?'<div class="ven">'+esc(H.venue)+'</div>':'')+
  '<div class="count" aria-label="Countdown"><div><b id="d">--</b><span>Days</span></div><div><b id="h">--</b><span>Hours</span></div><div><b id="m">--</b><span>Mins</span></div><div><b id="s">--</b><span>Secs</span></div></div>'+
  '<a class="scroll" href="#story">'+esc(H.scroll)+'</a></header>'+
- '<section id="story"><div class="wrap"><h2 class="serif">'+esc(S.heading)+'</h2><img class="arch" src="'+esc(S.image)+'" alt="'+esc(H.name1+' and '+H.name2)+'"><p class="q">'+esc(S.quote)+'</p><p class="by">'+esc(S.by)+'</p></div></section>'+
+ '<section id="story"><div class="wrap"><h2 class="serif">'+esc(S.heading)+'</h2><img class="arch" src="'+esc(S.image)+'" alt="'+esc(H.name1+' and '+H.name2)+'"><p class="q">'+esc(S.quote)+'</p><p class="by">'+esc(S.by)+'</p></div></section>'+gal+
  '<div class="divider">❧</div>'+
  '<section class="sfam"><div class="wrap"><div class="label">'+esc(FM.label)+'</div><h2 class="serif">'+esc(FM.heading)+'</h2><div class="fam">'+[FM.bride,FM.groom].map(function(f){return'<div class="fc"><div class="t">'+esc(f.title)+'</div><h3>'+esc(f.name)+'</h3><p class="r">'+esc(f.relation)+'</p>'+f.parents.map(function(p){return'<p class="pn">'+esc(p)+'</p>'}).join('')+'</div>'}).join('')+'</div></div></section><div class="divider">❧</div>'+
   '<section class="evhead"><div class="wrap"><div class="label">'+esc(E.label)+'</div><h2 class="serif">'+esc(E.heading)+'</h2></div></section>'+
  E.days.map(function(d,i){return'<div class="day d'+(i%2)+'"><div class="wrap"><div class="dayhead">'+esc(d.date)+'</div>'+d.items.map(function(e){var c=e.colors||[];
    var sw=e.theme?'<div class="theme">'+c.map(function(x){return'<i style="background:'+esc(x)+'"></i>'}).join('')+'Theme · '+esc(e.theme)+'</div>':'';
-   return'<div class="ev"'+(c.length?' style="--a1:'+esc(c[0])+';--a2:'+esc(c[1]||c[0])+'"':'')+'><div class="ic">'+esc(e.icon)+'</div><h3>'+esc(e.title)+'</h3>'+(e.sub?'<p class="sub">'+esc(e.sub)+'</p>':'')+'<p class="tm" style="color:var(--rust);font-weight:500">'+esc(e.time)+'</p>'+sw+'<p class="x">'+esc(e.text)+'</p></div>'}).join('')+'</div></div>'}).join('')+
+   return'<div class="ev"'+(c.length?' style="--a1:'+esc(c[0])+';--a2:'+esc(c[1]||c[0])+'"':'')+'><div class="ic">'+esc(e.icon)+'</div><h3>'+esc(e.title)+'</h3>'+(e.sub?'<p class="sub">'+esc(e.sub)+'</p>':'')+'<p class="tm" style="color:var(--rust);font-weight:500">'+esc(e.time)+'</p>'+sw+'<p class="x">'+esc(e.text)+'</p>'+(e.image?'<div class="evimg"><img src="'+esc(e.image)+'" alt="'+esc(e.title)+'" loading="lazy"></div>':'')+'</div>'}).join('')+'</div></div>'}).join('')+
  '<div class="full" role="img" aria-label="'+esc(V.name)+'"><p class="serif">'+esc(C.banner.quote)+'</p></div><div class="divider" style="margin-top:36px">❧</div>'+
  '<section class="svn"><div class="wrap"><div class="label" style="color:#a8873c">'+esc(V.label)+'</div><h2 class="serif">'+esc(V.heading)+'</h2><img class="vimg" src="'+esc(V.image)+'" alt="'+esc(V.name)+'">'+
  '<h3 class="serif vname">'+esc(V.name)+'</h3>'+(V.address&&V.address.length?'<p class="addr">'+V.address.map(esc).join('<br>')+'</p>':'')+(V.mapsUrl?'<a class="mapbox" target="_blank" rel="noopener" href="'+esc(V.mapsUrl)+'" aria-label="Open '+esc(V.name)+' in Google Maps">'+(V.mapsEmbedUrl?'<iframe src="'+esc(V.mapsEmbedUrl)+'" title="Map showing '+esc(V.name)+'" aria-hidden="true" tabindex="-1" loading="lazy"></iframe>':'<span class="mapfallback">Map preview unavailable</span>')+'<span class="maphint"><span class="map-pin" aria-hidden="true">📍</span><span>'+esc(V.mapsText)+'<small>Tap to open this exact location in Google Maps</small></span><span class="map-arrow" aria-hidden="true">↗</span></span></a>':'')+'</div></section><div class="divider">❧</div>'+
@@ -256,8 +284,14 @@ function render(C){
  var pr=$('#prog');addEventListener('scroll',function(){var de=document.documentElement;pr.style.transform='scaleX('+Math.min(1,de.scrollTop/Math.max(1,de.scrollHeight-de.clientHeight))+')'},{passive:true});
  if(!reduce&&'IntersectionObserver' in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
-  [['#story .wrap>*'],['.fc','a'],['.evhead .wrap>*'],['.dayhead'],['.ev','a'],['.vimg'],['.vname'],['.addr'],['.mapbox'],['.srsvp .wrap>*'],['footer .box'],['.arch','z']].forEach(function(p){
-   document.querySelectorAll(p[0]).forEach(function(el,i){el.classList.add('rv');if(p[1]==='z')el.classList.add('z');else if(p[1]==='a')el.classList.add(i%2?'r':'l');el.style.setProperty('--dl',(i%3)*.12+'s');io.observe(el)})})}
+  [['#story .wrap>*'],['.fc','a'],['.evhead .wrap>*'],['.dayhead'],['.ev','a'],['.vimg'],['.vname'],['.addr'],['.mapbox'],['.srsvp .wrap>*'],['footer .box'],['.arch','z'],['.pano .wrap>.label, .pano h2'],['.panoscroll','u'],['.pano1','u'],['.pcap'],['.evimg','u']].forEach(function(p){
+   document.querySelectorAll(p[0]).forEach(function(el,i){el.classList.add('rv');if(p[1]==='z')el.classList.add('z');else if(p[1]==='u'){el.classList.add('up');if(i%2)el.classList.add('alt')}else if(p[1]==='a')el.classList.add(i%2?'r':'l');el.style.setProperty('--dl',(i%3)*.12+'s');io.observe(el)})})}
+
+ /* panorama: bend tiles away from the centre while scrolling */
+ var ps=$('.panoscroll');
+ if(ps){var pis=ps.querySelectorAll('.pi');
+  var curve=function(){pis.forEach(function(el){var d=(el.offsetLeft+el.offsetWidth/2-ps.scrollLeft-ps.clientWidth/2)/el.offsetWidth;d=Math.max(-2,Math.min(2,d));el.style.transform='rotateY('+(-d*14)+'deg) scale('+(1-Math.abs(d)*.04)+')'})};
+  ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);curve()}
 
  /* countdown */
  var target=new Date(H.countdownTo).getTime(),pad=function(x){return x<10?'0'+x:''+x};
