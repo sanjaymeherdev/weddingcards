@@ -8,14 +8,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Rashi &amp; Manish — You’re Invited 🙏">
 <meta property="og:description" content="Join us on 24th &amp; 25th November 2026 to celebrate the beginning of our forever.">
-<meta property="og:image" content="https://weddingcards-five.vercel.app/assets/thumbnail.jpg">
+<meta property="og:image" content="https://weddingcards-five.vercel.app/assets/Thumb.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://weddingcards-five.vercel.app/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rashi &amp; Manish — You’re Invited 🙏">
 <meta name="twitter:description" content="Join us on 24th &amp; 25th November 2026.">
-<meta name="twitter:image" content="https://weddingcards-five.vercel.app/assets/thumbnail.jpg">
+<meta name="twitter:image" content="https://weddingcards-five.vercel.app/assets/Thumb.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff6dc;--card:#fffaf0;--field:#fffdf6;--ink:#3b0b1c;--soft:#8a3d3a;--rust:#c1121f;--gold:#f2a900;--sage:#d81b60;--line:#f3c640;--foot:#4a0820;
@@ -295,7 +295,7 @@ function render(C){
   originals.forEach(function(el){var clone=el.cloneNode(true);clone.setAttribute('aria-hidden','true');ps.appendChild(clone)});
   pis=ps.querySelectorAll('.pi');
   var loopAt=ps.children[originals.length].offsetLeft-ps.children[0].offsetLeft;
-  function move(now){if(!inView)return;if(lastTime)ps.scrollLeft+=(now-lastTime)*.04;lastTime=now;if(ps.scrollLeft>=loopAt)ps.scrollLeft-=loopAt;curve();frame=requestAnimationFrame(move)}
+  function move(now){if(!inView)return;if(lastTime)ps.scrollLeft+=(now-lastTime)*.12;lastTime=now;if(ps.scrollLeft>=loopAt)ps.scrollLeft-=loopAt;curve();frame=requestAnimationFrame(move)}
   function startMove(){if(!frame){lastTime=0;frame=requestAnimationFrame(move)}}
   function stopMove(){if(frame)cancelAnimationFrame(frame);frame=0;lastTime=0}
   ps.addEventListener('scroll',function(){requestAnimationFrame(curve)},{passive:true});addEventListener('resize',curve);
